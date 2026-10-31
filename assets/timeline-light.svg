@@ -1,0 +1,73 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="730" viewBox="0 0 960 730" role="img" aria-label="Sariya Rizwan: career timeline">
+<title>Sariya Rizwan: career timeline</title>
+<style>
+/* Elements start hidden and animate in, so reduced motion must jump to the end state. */
+text { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', Helvetica, Arial, sans-serif; }
+.fade { opacity: 0; animation: fade .8s ease-out .2s forwards; }
+.track { stroke-dasharray: 554; stroke-dashoffset: 554; animation: draw 2.70s ease-in-out .3s forwards; }
+.m { opacity: 0; animation: pop .5s ease-out forwards; }
+@keyframes draw { to { stroke-dashoffset: 0; } }
+@keyframes fade { to { opacity: 1; } }
+@keyframes pop { from { opacity: 0; transform: translateX(-8px); } to { opacity: 1; transform: none; } }
+@media (prefers-reduced-motion: reduce) {
+  * { animation: none !important; opacity: 1 !important; stroke-dashoffset: 0 !important; transform: none !important; }
+}
+</style>
+<text x="0" y="76" font-size="46" font-weight="800" fill="#1f2328">Sariya Rizwan</text>
+<text class="fade" x="0" y="112" font-size="19" fill="#59636e">Business Intelligence Analyst, Data Analyst, and Data Engineer</text>
+<line class="track" x1="150" y1="168" x2="150" y2="722" stroke="#bf8700" stroke-width="3" stroke-linecap="round"/>
+<g class="m" style="animation-delay:0.40s">
+<text x="124" y="198" text-anchor="end" font-size="20" font-weight="800" fill="#bf8700">2026</text>
+<circle cx="150" cy="192" r="10" fill="#bf8700" stroke="#bf8700" stroke-width="3"/>
+<rect x="186" y="168" width="766" height="74" rx="12" fill="#f6f8fa" stroke="#d0d7de"/>
+<text x="206" y="198" font-size="17" font-weight="700" fill="#1f2328">Junior Business Analyst - GIS</text>
+<text x="932" y="198" text-anchor="end" font-size="13" fill="#59636e">Oct 2026 – Present</text>
+<text x="206" y="222" font-size="15" font-weight="600" fill="#bf8700">Consolidated Edison (ConEd)</text>
+
+</g>
+<g class="m" style="animation-delay:0.75s">
+<text x="124" y="294" text-anchor="end" font-size="20" font-weight="800" fill="#bf8700">2026</text>
+<circle cx="150" cy="288" r="10" fill="#bf8700" stroke="#bf8700" stroke-width="3"/>
+<rect x="186" y="264" width="766" height="74" rx="12" fill="#f6f8fa" stroke="#d0d7de"/>
+<text x="206" y="294" font-size="17" font-weight="700" fill="#1f2328">Business Intelligence Analyst</text>
+<text x="932" y="294" text-anchor="end" font-size="13" fill="#59636e">Jun 2026 – Present</text>
+<text x="206" y="318" font-size="15" font-weight="600" fill="#bf8700">Natera</text>
+
+</g>
+<g class="m" style="animation-delay:1.10s">
+<text x="124" y="390" text-anchor="end" font-size="20" font-weight="800" fill="#59636e">2025</text>
+<circle cx="150" cy="384" r="7" fill="#ffffff" stroke="#bf8700" stroke-width="3"/>
+<rect x="186" y="360" width="766" height="74" rx="12" fill="#f6f8fa" stroke="#d0d7de"/>
+<text x="206" y="390" font-size="17" font-weight="700" fill="#1f2328">Technical Intern, Continuous Improvement</text>
+<text x="932" y="390" text-anchor="end" font-size="13" fill="#59636e">Jun 2025 – May 2026</text>
+<text x="206" y="414" font-size="15" font-weight="600" fill="#bf8700">Public Service Enterprise Group (PSEG)</text>
+
+</g>
+<g class="m" style="animation-delay:1.45s">
+<text x="124" y="486" text-anchor="end" font-size="20" font-weight="800" fill="#59636e">2023</text>
+<circle cx="150" cy="480" r="7" fill="#ffffff" stroke="#bf8700" stroke-width="3"/>
+<rect x="186" y="456" width="766" height="74" rx="12" fill="#f6f8fa" stroke="#d0d7de"/>
+<text x="206" y="486" font-size="17" font-weight="700" fill="#1f2328">Data Analyst | Business Intelligence &amp; Financial…</text>
+<text x="932" y="486" text-anchor="end" font-size="13" fill="#59636e">Jul 2023 – Aug 2024</text>
+<text x="206" y="510" font-size="15" font-weight="600" fill="#bf8700">ASH-TECH Solutions</text>
+
+</g>
+<g class="m" style="animation-delay:1.80s">
+<text x="124" y="582" text-anchor="end" font-size="20" font-weight="800" fill="#59636e">2021</text>
+<circle cx="150" cy="576" r="7" fill="#ffffff" stroke="#bf8700" stroke-width="3"/>
+<rect x="186" y="552" width="766" height="74" rx="12" fill="#f6f8fa" stroke="#d0d7de"/>
+<text x="206" y="582" font-size="17" font-weight="700" fill="#1f2328">Business Intelligence Analyst | Data &amp; Systems A…</text>
+<text x="932" y="582" text-anchor="end" font-size="13" fill="#59636e">Jul 2021 – Jun 2023</text>
+<text x="206" y="606" font-size="15" font-weight="600" fill="#bf8700">WebScape</text>
+
+</g>
+<g class="m" style="animation-delay:2.15s">
+<text x="124" y="678" text-anchor="end" font-size="20" font-weight="800" fill="#59636e">2026</text>
+<circle cx="150" cy="672" r="7" fill="#ffffff" stroke="#bf8700" stroke-width="3"/>
+<rect x="186" y="648" width="766" height="74" rx="12" fill="#f6f8fa" stroke="#d0d7de"/>
+<text x="206" y="678" font-size="17" font-weight="700" fill="#1f2328">Master of Business Administration (MBA) in Busin…</text>
+<text x="932" y="678" text-anchor="end" font-size="13" fill="#59636e">Graduated 2026</text>
+<text x="206" y="702" font-size="15" font-weight="600" fill="#bf8700">Pace University</text>
+
+</g>
+</svg>

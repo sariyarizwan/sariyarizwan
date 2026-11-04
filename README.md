@@ -5,23 +5,36 @@
 
 ## The story so far
 
-Over **4+ years**, that work grew into owning end-to-end analytics workstreams—defining KPIs, diagnosing performance drivers, quantifying tradeoffs, automating decision tools, and translating findings into executive recommendations. I've led projects across technology, healthcare, energy, finance, product, and operations.
+I'm a Business Intelligence Analyst at Natera with an MBA in Business Analytics (STEM) from Pace University. My work covers the whole path from raw data to a decision: pipelines in SQL, Python, dbt and Airflow, models and forecasts on Snowflake, Databricks and BigQuery, and the Power BI, Tableau and Sigma reporting that leaders act on.
 
-At Natera I own strategic workstreams spanning Voice of Patient, PC Performance, AI Disposition, and Salesforce transfer reporting, conducting deep dives, forecasts, variance and A-B analyses, and scenario modeling. At ConEd I facilitate workshops with GIS, control-center, and engineering leaders, synthesize requirements, map current and future states, and develop executive-ready recommendations for a mission-critical gas-electric incident notification system.
+My 4+ years started at **WebScape** in Mumbai (2021–2023), where I turned ambiguous client requests into requirements, SQL analyses and dashboards, and standardized processes that cut onboarding time by 30%. At **ASH-TECH Solutions** (2023–2024) I ran client analytics engagements, integrated Salesforce, HubSpot and NetSuite data, automated the analytics with dbt and Airflow, and built financial models whose recommendations generated $200K+ in client value.
+
+During my MBA I interned at **PSEG**, where I built Fleet Forecaster, a scenario-planning tool that cut fleet-planning processing from 6 hours to 5 minutes, with about $120K in annualized savings. At **Natera** I now own six analytics workstreams, from Voice of Patient to Twilio/Calabrio reconciliation, and turn deep dives, forecasts and A/B tests into recommendations for Operations, Product, Finance, Sales and Support. I also co-author research on AI agents and data systems, with five papers across ACM, Springer, IATED and the Hillside Group (one forthcoming).
 
 ## Milestone work
 
-| Initiative | Scope | Outcome |
-|------------|-------|---------|
-| Fleet Forecaster | Demand, capacity, cost, and budget scenario modeling for fleet planning at PSEG | Reduced processing time from **6 hours** to **5 minutes**; generated approximately **$120K** annualized savings |
-| Voice of Patient Analytics | Strategic KPI definition, performance driver analysis, and executive recommendations at Natera | Delivered insights on patient experience drivers; influenced Product and Operations roadmap priorities |
-| GIS Incident Notification Modernization | Cross-functional requirements, current/future state mapping, and BRD/FRD for mission-critical system at ConEd | Built consensus on **200-ft/24-hour** proximity logic, centralized architecture, and implementation sequencing |
-| Client Performance & Financial Models | Sales, marketing, finance, product, and operations analytics at ASH-TECH Solutions | Generated **$200K+** in client value through growth driver analysis, profitability models, ROI forecasting, and executive recommendations |
-| AI Disposition & Salesforce Transfer Reporting | Deep dives, variance analysis, and scenario modeling at Natera | Quantified tradeoffs and automated decision tools |
-| Process Standardization & Onboarding | Requirements translation, UAT, and training at WebScape | Reduced onboarding time by **30%** through standardized processes and implementation plans |
+| Initiative | What I did | Result |
+|------------|------------|--------|
+| **Fleet Forecaster**<br><sub>PSEG · 2025–26</sub> | Built a scenario-planning tool in React, Flask, PostgreSQL, SQL, Python and Excel/VBA that models fleet demand, capacity, cost and budget | Processing cut from **6 hours to 5 minutes**; about **$120K** in annualized savings |
+| **Operations automation**<br><sub>PSEG · 2025–26</sub> | Mapped current and future processes, built business cases, and automated workflows with Power Apps, Power Automate, Python, APIs and AI prototypes | Continuous-improvement workstreams taken from discovery to implementation, with fewer manual steps |
+| **Voice of Patient & AI Disposition analytics**<br><sub>Natera · 2026–present</sub> | Defined KPIs and ran deep dives, forecasts, variance, funnel, A/B and pre/post analyses in SQL and Python on Snowflake, Databricks and BigQuery | Recommendations used by Operations, Product, Finance, Sales, Support and leadership to set roadmap and process priorities |
+| **Salesforce, Twilio & Calabrio reporting**<br><sub>Natera · 2026–present</sub> | Reconciled conflicting sources across Salesforce transfer reporting, communication hold/release and Twilio/Calabrio data, and quantified the tradeoffs | Recurring decision tools automated in Power BI, Tableau, Sigma and Excel |
+| **Client growth & financial models**<br><sub>ASH-TECH Solutions · 2023–24</sub> | Modeled growth drivers, profitability, ROI, forecasts and scenarios for clients across sales, marketing, finance, product and operations | Recommendations generated **$200K+** in client value |
+| **Client data integration**<br><sub>ASH-TECH Solutions · 2023–24</sub> | Integrated Salesforce, HubSpot, NetSuite, API and cloud data, and automated the analytics with SQL, Python, dbt and Airflow | BI workstreams carried from requirements to adoption, with reusable dashboards, playbooks and decision frameworks |
+| **Reusable delivery processes**<br><sub>WebScape · 2021–23</sub> | Turned ambiguous requests into scoped requirements, user stories, process and data flows, tests and implementation plans, and supported UAT and training | Onboarding time cut by **30%** |
+| **AI agents & data-systems research**<br><sub>2025–26</sub> | Co-authored [GRAFT](https://doi.org/10.1145/3786335.3813216) (ACM, CAIS ’26), [Branch-Commit-Validate](https://doi.org/10.1007/978-3-032-22208-4_37) (Springer, SAM 2025) and [An Advanced AI-Driven Database System](https://doi.org/10.21125/edulearn.2025.1294) (IATED, EDULEARN25) | Five papers across ACM, Springer, IATED and the Hillside Group, one forthcoming |
 
 <details>
-<summary>Behind Fleet Forecaster</summary>
+<summary><b>Behind Fleet Forecaster</b> (click to expand)</summary>
+<br>
+
+**The problem.** Fleet planning at PSEG was an ambiguous problem, and processing took about 6 hours. I structured it into four scenario models: demand, capacity, cost and budget.
+
+**What I built.** Fleet Forecaster, a React and Flask app on PostgreSQL that runs all four scenarios, built with SQL, Python and Excel/VBA.
+
+**The result.** Processing dropped from **6 hours to 5 minutes**, about **$120K** in annualized savings, and I turned the scenario results into planning recommendations for business stakeholders.
+
+**Stack:** React · Flask · PostgreSQL · SQL · Python · Excel/VBA
 
 </details>
 
@@ -31,7 +44,9 @@ At Natera I own strategic workstreams spanning Voice of Patient, PC Performance,
 
 ## What's next
 
-[Email](mailto:sariyarizwan25@gmail.com) · [LinkedIn](https://www.linkedin.com/in/sariyarizwan) · [GitHub](https://github.com/sariyarizwan)
+I'm open to **Data Engineer, Analytics Engineer and Business Intelligence Analyst** roles. Email is the fastest way to reach me.
+
+[Portfolio](https://sariyarizwan.com) · [Email](mailto:sariyarizwan25@gmail.com) · [LinkedIn](https://www.linkedin.com/in/sariyarizwan) · [GitHub](https://github.com/sariyarizwan)
 
 ## Projects
 

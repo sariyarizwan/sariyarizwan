@@ -129,6 +129,20 @@ I find the signal in messy operational data, then build the pipelines, models an
 <div align="center">
 <br>
 
+<h3><code>sariya@github ~ $ ./play.sh</code></h3>
+
+<a href="https://sariyarizwan.com/#play">
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="./assets/arcade-dark.svg" />
+  <img src="./assets/arcade-light.svg" width="100%" alt="An arcade game made from Sariya's last 12 months of GitHub contributions. A pixel lens clears the grid day by day, filters out three noise sprites and runs the score up to her contribution total. Links to three data games on sariyarizwan.com." />
+</picture>
+</a>
+
+<sub>My last 12 months of contributions, played as a level. Press start for three small data games on my site.</sub>
+
+<br>
+<br>
+
 <h3><code>sariya@github ~ $ exit</code></h3>
 
 I'm open to **BI Engineer, Analytics Engineer and Data Engineer** roles, in New York or remote.<br>

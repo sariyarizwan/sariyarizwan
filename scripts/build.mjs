@@ -3,13 +3,15 @@
 //   results        four headline results
 //   contributions  the last 12 months of GitHub contributions, with a weekly trend line
 //   career         every role on one time axis
+//   arcade         the contribution calendar as a looping arcade level
 //
 // Usage:
 //   GITHUB_TOKEN=... node scripts/build.mjs     fetches the contribution calendar from the GraphQL API
 //   node scripts/build.mjs calendar.json        uses a saved GraphQL response instead
 //
-// No dependencies. The fonts in scripts/fonts are subsets of the portfolio's fonts (SIL OFL 1.1),
-// embedded so the images look the same on GitHub, which blocks external fonts in README images.
+// No dependencies. The fonts in scripts/fonts are subsets of the portfolio's fonts plus a pixel font
+// (all SIL OFL 1.1), embedded so the images look the same on GitHub, which blocks external fonts in
+// README images.
 
 import fs from 'node:fs';
 import path from 'node:path';
@@ -43,6 +45,7 @@ const FACES = {
   serifI: () => `@font-face{font-family:IS;font-style:italic;src:url(data:font/woff2;base64,${font('instrument-serif-italic.woff2')}) format("woff2")}`,
   sans: () => `@font-face{font-family:ISans;font-weight:400 700;src:url(data:font/woff2;base64,${font('instrument-sans.woff2')}) format("woff2")}`,
   mono: () => `@font-face{font-family:JBM;font-weight:400 800;src:url(data:font/woff2;base64,${font('jetbrains-mono.woff2')}) format("woff2")}`,
+  arcade: () => `@font-face{font-family:SRA;src:url(data:font/woff2;base64,${font('sr-arcade.woff2')}) format("woff2")}`,
 };
 const F = {
   serif: `IS,'Instrument Serif',Georgia,serif`,
@@ -453,13 +456,238 @@ ${mba}`;
   });
 }
 
+// ---------------------------------------------------------------- arcade
+
+// The contribution calendar as an arcade level. A pixel lens clears the grid row by row, filters out three
+// "noise" sprites and counts the score up to the year's total, then the stage clears and the game loops.
+// The screen is dark in both themes; only the frame around it follows the page.
+const SCREEN = { bg: '#0C0B09', ink: '#EEE7D9', ink2: '#B3AB9B', ink3: '#938C7F', sig: '#FF5A36', pellet: '#332E27', lvl: ['', '#544C41', '#8A8170', '#CBC2B1', '#FF5A36'] };
+const LOOP = 20; // seconds per game
+const PLAY = { start: 1.4, end: 16.6, clear: 17.0, reset: 19.6 };
+const r3 = (n) => Math.round(n * 1000) / 1000;
+const pct = (s) => `${r3(Math.min(100, (s / LOOP) * 100))}%`;
+const at = (x, y) => `translate(${r1(x)}px,${r1(y)}px)`;
+
+// Pixel sprites: one character per pixel, one path per colour.
+function sprite(rows, colours) {
+  const by = {};
+  rows.forEach((row, y) => [...row].forEach((ch, x) => { if (colours[ch]) (by[ch] ??= []).push(`M${x} ${y}h1v1h-1z`); }));
+  return Object.entries(by).map(([ch, d]) => `<path d="${d.join('')}" fill="${colours[ch]}"/>`).join('');
+}
+
+const LENS = [
+  '...ooooo......',
+  '..ooooooo.....',
+  '.ooiiiiioo....',
+  'ooigiiiiioo...',
+  'oogiiiiiioo...',
+  'ooiiiiiiioo...',
+  'ooiiiiiiioo...',
+  'ooiiiiiiioo...',
+  '.ooiiiiioo....',
+  '..oooooooHH...',
+  '...ooooo.HHH..',
+  '..........HHH.',
+  '...........HH.',
+];
+
+// A blob of static with two eyes and a dark outline, in two frames that flicker. 10 x 9 pixels.
+function noiseFrames(seed) {
+  const { r } = seeded(seed);
+  const body = (x, y) => x >= 1 && x <= 8 && y >= 1 && y <= 7 && ((x - 4.5) / 4) ** 2 + ((y - 4.2) / 3.6) ** 2 <= 1;
+  const frame = () => Array.from({ length: 9 }, (_, y) => Array.from({ length: 10 }, (_, x) => {
+    if (!body(x, y)) return body(x - 1, y) || body(x + 1, y) || body(x, y - 1) || body(x, y + 1) ? 'k' : '.';
+    if (y === 3 && (x === 3 || x === 6)) return 'e';
+    const v = r();
+    return v < 0.3 ? 'c' : v < 0.62 ? 'a' : v < 0.88 ? 'b' : 'w';
+  }).join(''));
+  return [frame(), frame()];
+}
+const NOISE_COLOURS = { a: '#6E675B', b: '#A59D8E', c: '#4A453D', w: '#D8D0C0', k: '#050404', e: SCREEN.sig };
+
+function arcade(t, cal) {
+  const W = 1200, H = 392, M = 14;
+  const s = calendarStats(cal);
+  const weeks = cal.weeks, n = weeks.length;
+  const cell = 12, pitch = Math.min(20, 1040 / (n - 1));
+  const span = (n - 1) * pitch + cell;
+  const gx = (W - span) / 2, gy = 116;
+  const cx = (i) => gx + i * pitch + cell / 2;
+  const cy = (row) => gy + row * pitch + cell / 2;
+  const kf = [];
+
+  // The lens's route: in from the left, along each row in turn (alternating direction), out at the right,
+  // at one steady speed.
+  const steps = 1.5 + 7 * (n - 1) + 6 + 1.5;
+  const v = (pitch * steps) / (PLAY.end - PLAY.start);
+  const route = [{ x: cx(0) - 1.5 * pitch, y: cy(0), t: PLAY.start }];
+  const go = (x, y) => {
+    const p = route[route.length - 1];
+    route.push({ x, y, t: p.t + Math.hypot(x - p.x, y - p.y) / v });
+  };
+  const rows = [];
+  for (let row = 0; row < 7; row++) {
+    const dir = row % 2 ? -1 : 1;
+    const [xs, xe] = dir > 0 ? [cx(0), cx(n - 1)] : [cx(n - 1), cx(0)];
+    go(xs, cy(row));
+    rows.push({ row, xs, dir, a: route[route.length - 1].t });
+    go(xe, cy(row));
+  }
+  go(cx(n - 1) + 1.5 * pitch, cy(6));
+  const home = route[0], exit = route[route.length - 1];
+  const tEat = (row, i) => rows[row].a + Math.abs(cx(i) - rows[row].xs) / v;
+
+  // The level: lit days as squares in the calendar's colours, empty days as small pellets.
+  const eats = [];
+  const paths = ['', '', '', '', ''];
+  weeks.forEach((w, i) => w.contributionDays.forEach((d) => {
+    const row = new Date(`${d.date}T00:00:00Z`).getUTCDay();
+    const lv = LEVEL[d.contributionLevel] ?? 0;
+    if (d.contributionCount > 0) eats.push({ t: tEat(row, i), n: d.contributionCount, lv, x: cx(i), y: cy(row) });
+    paths[lv] += lv ? `M${r1(cx(i) - cell / 2)} ${r1(cy(row) - cell / 2)}h${cell}v${cell}h-${cell}z` : `M${r1(cx(i) - 2)} ${r1(cy(row) - 2)}h4v4h-4z`;
+  }));
+  const grid = paths.map((d, lv) => d && `<path d="${d}" fill="${lv ? SCREEN.lvl[lv] : SCREEN.pellet}"/>`).join('');
+
+  // Behind the lens each row is wiped clean, leaving a faint trace of its path. The wipe's edge is kept
+  // exactly under the lens by starting and ending it where the lens would cross the band's edges.
+  const L = gx - 5, R = gx + span + 5;
+  const wipes = rows.map(({ row, xs, dir, a }) => {
+    const t0 = a - (dir > 0 ? xs - L : R - xs) / v;
+    const t1 = a + (dir > 0 ? R - xs : xs - L) / v;
+    kf.push(`@keyframes w${row}{0%,${pct(t0)}{transform:scaleX(0)}${pct(t1)},${pct(PLAY.reset + 0.1)}{transform:scaleX(1)}${pct(PLAY.reset + 0.12)},100%{transform:scaleX(0)}}`);
+    return `<g class="L wipe" style="transform-origin:${dir > 0 ? 'left' : 'right'} center;animation-name:w${row}"><rect x="${r1(L)}" y="${r1(cy(row) - pitch / 2)}" width="${r1(R - L)}" height="${r1(pitch)}" fill="${SCREEN.bg}"/><rect x="${r1(L)}" y="${r1(cy(row) - 1)}" width="${r1(R - L)}" height="2" fill="${SCREEN.sig}" fill-opacity=".3"/></g>`;
+  }).join('');
+
+  // The lens.
+  const lensKf = [`0%{transform:${at(home.x, home.y)}}`, ...route.map((p) => `${pct(p.t)}{transform:${at(p.x, p.y)}}`),
+    `${pct(PLAY.reset + 0.1)}{transform:${at(exit.x, exit.y)}}`, `${pct(PLAY.reset + 0.12)},100%{transform:${at(home.x, home.y)}}`];
+  kf.push(`@keyframes lens{${lensKf.join('')}}`);
+  kf.push(`@keyframes lensOn{0%{opacity:1}${pct(PLAY.reset)}{opacity:0}${pct(PLAY.reset + 0.3)}{opacity:1}100%{opacity:1}}`);
+  const lens = `<g class="L" style="transform:${at(home.x, home.y)};animation-name:lens"><g class="L S" style="animation-name:lensOn"><g class="bob"><g transform="translate(-11 -11) scale(2)">${sprite(LENS, { o: SCREEN.sig, i: 'rgba(255,90,54,.16)', g: SCREEN.ink, H: SCREEN.ink2 })}</g></g></g></g>`;
+
+  // Three noise sprites drift toward the lens and vanish when it reaches them.
+  const caught = [];
+  const noise = [{ row: 1, at: 0.62 }, { row: 4, at: 0.35 }, { row: 6, at: 0.7 }].map((e, k) => {
+    const i = Math.round(e.at * (n - 1));
+    const tc = tEat(e.row, i), xc = cx(i), y = cy(e.row);
+    const x0 = xc + rows[e.row].dir * 10 * tc; // 10 px a second, toward the lens
+    caught.push({ t: tc, x: xc, y });
+    kf.push(`@keyframes n${k}{0%{transform:${at(x0, y)};opacity:1}${pct(tc)}{transform:${at(xc, y)};opacity:1}${pct(tc + 0.02)},${pct(PLAY.reset + 0.1)}{transform:${at(xc, y)};opacity:0}${pct(PLAY.reset + 0.12)}{transform:${at(x0, y)};opacity:0}${pct(PLAY.reset + 0.3)},100%{transform:${at(x0, y)};opacity:1}}`);
+    const [f1, f2] = noiseFrames(101 + k * 37);
+    return `<g class="L" style="transform:${at(x0, y)};animation-name:n${k}"><g class="bob" style="animation-delay:-${k * 0.2}s"><g transform="translate(-12.5 -11.3) scale(2.5)"><g class="f1">${sprite(f1, NOISE_COLOURS)}</g><g class="f2">${sprite(f2, NOISE_COLOURS)}</g></g></g></g>`;
+  }).join('');
+
+  // Score pops for the busier days, sparks on the busiest, and a pop for each noise sprite caught.
+  const delay = (time) => `animation-delay:${r3(time - LOOP)}s`;
+  const SPARK = [[1, -1], [-1, -1], [1, 1], [-1, 1]];
+  SPARK.forEach(([dx, dy], k) => kf.push(`@keyframes sp${k}{0%{opacity:1;transform:translate(0,0)}${pct(0.45)}{opacity:0;transform:translate(${dx * 16}px,${dy * 16}px)}100%{opacity:0;transform:translate(${dx * 16}px,${dy * 16}px)}}`));
+  const sparks = (x, y, fill, time) => SPARK.map((_, k) => `<rect class="L spark" x="${r1(x - 2)}" y="${r1(y - 2)}" width="4" height="4" fill="${fill}" style="animation-name:sp${k};${delay(time)}"/>`).join('');
+  const pops = [
+    ...eats.filter((e) => e.lv >= 2).map((e) => `<text class="L pop" x="${r1(e.x)}" y="${r1(e.y - 12)}" fill="${e.lv === 4 ? SCREEN.sig : SCREEN.ink}" style="${delay(e.t)}">+${e.n}</text>${e.lv === 4 ? sparks(e.x, e.y, SCREEN.sig, e.t) : ''}`),
+    ...caught.map((c) => `<text class="L pop" x="${r1(c.x)}" y="${r1(c.y - 14)}" fill="${SCREEN.ink2}" style="${delay(c.t)}">FILTERED</text>${sparks(c.x, c.y, SCREEN.ink2, c.t)}`),
+  ].join('');
+
+  // The score, as one frame for every quarter second of play.
+  const DT = 0.25;
+  const pad = (x) => String(x).padStart(6, '0');
+  const scoreAt = (time) => eats.reduce((sum, e) => sum + (e.t <= time ? e.n : 0), 0);
+  const frames = [];
+  let tk = PLAY.start;
+  for (let k = 1; tk < PLAY.end + 0.25; k++) {
+    frames.push(`<text class="L S sf" style="${delay(tk)}">${pad(scoreAt(tk))}</text>`);
+    tk = r3(PLAY.start + k * DT); // whole milliseconds, so each frame ends exactly where the next begins
+  }
+  kf.push(`@keyframes sf{0%{opacity:1}${pct(DT)},100%{opacity:0}}`);
+  kf.push(`@keyframes s0{0%{opacity:1}${pct(PLAY.start)},100%{opacity:0}}`);
+  kf.push(`@keyframes sN{0%{opacity:0}${pct(tk)},100%{opacity:1}}`);
+  const score = `<g class="val" transform="translate(48 88)">
+<text class="still">${pad(s.total)}</text>
+<text class="L S hide" style="animation-name:s0">${pad(0)}</text>
+${frames.join('\n')}
+<text class="L S hide" style="animation-name:sN">${pad(s.total)}</text>
+</g>`;
+
+  // Messages: the stage name before play, the tagline during it, STAGE CLEAR after.
+  kf.push(`@keyframes m0{0%{opacity:1}${pct(PLAY.start)}{opacity:0}${pct(PLAY.reset)},100%{opacity:1}}`);
+  kf.push(`@keyframes m1{0%{opacity:0}${pct(PLAY.start)}{opacity:1}${pct(PLAY.clear)},100%{opacity:0}}`);
+  kf.push(`@keyframes clear{0%{opacity:0}${pct(PLAY.clear)}{opacity:1}${pct(PLAY.reset)},100%{opacity:0}}`);
+  // The pixel font is monospaced at 1em, so the two halves can be placed by character count. SVG drops
+  // a leading space, so the gap between them is counted here instead.
+  const cta1 = '▶ PRESS START', cta2 = '· 3 DATA GAMES AT SARIYARIZWAN.COM';
+  const ctaX = W / 2 - ((cta1.length + 1 + cta2.length) * 14) / 2;
+
+  const css = `
+.px{font-family:SRA,monospace}
+.lab{font:12px SRA,monospace;fill:${SCREEN.ink3}}
+.val{font:20px SRA,monospace;fill:${SCREEN.ink}}
+.msg{font:16px SRA,monospace;fill:${SCREEN.ink}}
+.L{animation-duration:${LOOP}s;animation-iteration-count:infinite;animation-timing-function:linear}
+.S{animation-timing-function:step-end}
+.pop{font:10px SRA,monospace;text-anchor:middle;opacity:0;animation-name:pop;animation-timing-function:cubic-bezier(.2,.7,.3,1)}
+.wipe{transform-box:fill-box;transform:scaleX(0)}
+.spark{opacity:0}
+.sf,.hide{opacity:0}
+.val text{stroke:${SCREEN.bg};stroke-width:10px;paint-order:stroke}
+.sf{animation-name:sf}
+.still{animation:hide 1s infinite}
+.bob{animation:bob .6s step-end infinite}
+.f1{animation:f1 .36s step-end infinite}
+.f2{opacity:0;animation:f2 .36s step-end infinite}
+.blink{animation:blink 1.2s step-end infinite}
+@keyframes pop{0%{opacity:1;transform:translateY(0)}${pct(0.9)}{opacity:0;transform:translateY(-16px)}100%{opacity:0;transform:translateY(-16px)}}
+@keyframes hide{0%,100%{opacity:0}}
+@keyframes bob{0%{transform:translateY(0)}50%{transform:translateY(-2px)}}
+@keyframes f1{0%{opacity:1}50%{opacity:0}}
+@keyframes f2{0%{opacity:0}50%{opacity:1}}
+@keyframes blink{0%{opacity:1}60%{opacity:0}}
+${kf.join('\n')}`;
+
+  const body = `<defs>
+<pattern id="scan" width="4" height="4" patternUnits="userSpaceOnUse"><rect width="4" height="2" fill="#000"/></pattern>
+<radialGradient id="vig" cx="50%" cy="50%" r="70%"><stop offset=".55" stop-color="#000" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity=".55"/></radialGradient>
+</defs>
+<rect x="${M}" y="${M}" width="${W - 2 * M}" height="${H - 2 * M}" rx="12" fill="${SCREEN.bg}" stroke="${t.hair2}"/>
+<g class="lab">
+<text class="blink" x="48" y="58" fill="${SCREEN.sig}">1UP</text>
+<text x="${W / 2}" y="58" text-anchor="middle">BEST DAY</text>
+<text x="${W - 48}" y="58" text-anchor="end">LONGEST STREAK</text>
+</g>
+${score}
+<g class="val"><text x="${W / 2}" y="88" text-anchor="middle">${s.busiest}</text><text x="${W - 48}" y="88" text-anchor="end">${s.longest} DAYS</text></g>
+<g shape-rendering="crispEdges">
+${grid}
+${wipes}
+${noise}
+${lens}
+${pops}
+</g>
+<text class="msg L S hide" x="${W / 2}" y="296" text-anchor="middle" fill="${SCREEN.ink2}" style="animation-name:m0">STAGE 01 · THE LAST 12 MONTHS</text>
+<text class="msg L S" x="${W / 2}" y="296" text-anchor="middle" style="animation-name:m1">FIND THE SIGNAL IN THE NOISE</text>
+<g class="L S hide" style="animation-name:clear">
+<text class="px blink" x="${W / 2}" y="190" font-size="32" text-anchor="middle" fill="${SCREEN.sig}">STAGE CLEAR</text>
+<text class="px" x="${W / 2}" y="228" font-size="13" text-anchor="middle" fill="${SCREEN.ink}">SIGNAL FOUND · ${s.total.toLocaleString('en-US')} CONTRIBUTIONS</text>
+</g>
+<g class="px" font-size="14">
+<text class="blink" x="${r1(ctaX)}" y="346" fill="${SCREEN.sig}">${cta1}</text>
+<text x="${r1(ctaX + (cta1.length + 1) * 14)}" y="346" fill="${SCREEN.ink2}">${cta2}</text>
+</g>
+<rect x="${M}" y="${M}" width="${W - 2 * M}" height="${H - 2 * M}" rx="12" fill="url(#scan)" opacity=".22"/>
+<rect x="${M}" y="${M}" width="${W - 2 * M}" height="${H - 2 * M}" rx="12" fill="url(#vig)"/>`;
+
+  return svg({
+    w: W, h: H, t, css, body, faces: ['arcade'],
+    title: 'Arcade: the last 12 months of contributions as a game level',
+    desc: `A pixel-art arcade screen. The level is Sariya's real contribution calendar: a pixel lens clears it day by day, filters out three noise sprites and counts the score up to ${s.total} contributions. Best day: ${s.busiest}. Longest streak: ${s.longest} days. Press start for three data games on sariyarizwan.com.`,
+  });
+}
+
 // ---------------------------------------------------------------- main
 
 const cal = await loadCalendar(process.argv[2]);
 fs.mkdirSync(OUT, { recursive: true });
 const written = [];
 for (const [mode, t] of Object.entries(THEMES)) {
-  for (const [name, draw] of [['hero', hero], ['results', results], ['contributions', (th) => contributions(th, cal)], ['career', career]]) {
+  for (const [name, draw] of [['hero', hero], ['results', results], ['contributions', (th) => contributions(th, cal)], ['career', career], ['arcade', (th) => arcade(th, cal)]]) {
     const file = path.join(OUT, `${name}-${mode}.svg`);
     fs.writeFileSync(file, draw(t));
     written.push(`${path.relative(ROOT, file)} ${(fs.statSync(file).size / 1024).toFixed(1)} KB`);

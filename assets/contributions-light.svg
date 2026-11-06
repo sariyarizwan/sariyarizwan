@@ -19,7 +19,7 @@
 <g class="k" style="animation:fade .8s cubic-bezier(.16,1,.3,1) .05s both">
 <rect x="56" y="36" width="9" height="9" fill="#B9311A"/>
 <text x="76" y="46">FIG. 03 · CONTRIBUTIONS, LAST 12 MONTHS</text>
-<text x="1144" y="46" text-anchor="end">UPDATED 5 NOV 2026</text>
+<text x="1144" y="46" text-anchor="end">UPDATED 6 NOV 2026</text>
 </g>
 <g style="animation:rise .9s cubic-bezier(.16,1,.3,1) .1s both">
 <text class="big" x="54" y="112"><tspan fill="#B9311A">709</tspan> contributions</text>
@@ -87,7 +87,7 @@
 <g style="animation:pop .5s cubic-bezier(.16,1,.3,1) 1.23s both"><rect x="1065.2" y="222" width="15" height="15" rx="3" fill="#E3DCCF"/><rect x="1065.2" y="241.7" width="15" height="15" rx="3" fill="#E3DCCF"/><rect x="1065.2" y="261.4" width="15" height="15" rx="3" fill="#E3DCCF"/><rect x="1065.2" y="281.1" width="15" height="15" rx="3" fill="#E3DCCF"/><rect x="1065.2" y="300.8" width="15" height="15" rx="3" fill="#CFC7B8"/><rect x="1065.2" y="320.5" width="15" height="15" rx="3" fill="#CFC7B8"/><rect x="1065.2" y="340.2" width="15" height="15" rx="3" fill="#E3DCCF"/></g>
 <g style="animation:pop .5s cubic-bezier(.16,1,.3,1) 1.25s both"><rect x="1084.9" y="222" width="15" height="15" rx="3" fill="#E3DCCF"/><rect x="1084.9" y="241.7" width="15" height="15" rx="3" fill="#CFC7B8"/><rect x="1084.9" y="261.4" width="15" height="15" rx="3" fill="#CFC7B8"/><rect x="1084.9" y="281.1" width="15" height="15" rx="3" fill="#CFC7B8"/><rect x="1084.9" y="300.8" width="15" height="15" rx="3" fill="#CFC7B8"/><rect x="1084.9" y="320.5" width="15" height="15" rx="3" fill="#CFC7B8"/><rect x="1084.9" y="340.2" width="15" height="15" rx="3" fill="#E3DCCF"/></g>
 <g style="animation:pop .5s cubic-bezier(.16,1,.3,1) 1.27s both"><rect x="1104.6" y="222" width="15" height="15" rx="3" fill="#E3DCCF"/><rect x="1104.6" y="241.7" width="15" height="15" rx="3" fill="#CFC7B8"/><rect x="1104.6" y="261.4" width="15" height="15" rx="3" fill="#CFC7B8"/><rect x="1104.6" y="281.1" width="15" height="15" rx="3" fill="#CFC7B8"/><rect x="1104.6" y="300.8" width="15" height="15" rx="3" fill="#CFC7B8"/><rect x="1104.6" y="320.5" width="15" height="15" rx="3" fill="#CFC7B8"/><rect x="1104.6" y="340.2" width="15" height="15" rx="3" fill="#B9311A" class="hot" style="animation-delay:2.112s"/></g>
-<g style="animation:pop .5s cubic-bezier(.16,1,.3,1) 1.29s both"><rect x="1124.3" y="222" width="15" height="15" rx="3" fill="#CFC7B8"/><rect x="1124.3" y="241.7" width="15" height="15" rx="3" fill="#E3DCCF"/><rect x="1124.3" y="261.4" width="15" height="15" rx="3" fill="#E3DCCF"/><rect x="1124.3" y="281.1" width="15" height="15" rx="3" fill="#B9311A" class="hot" style="animation-delay:2.124s"/><rect x="1124.3" y="300.8" width="15" height="15" rx="3" fill="#B9311A" class="hot" style="animation-delay:2.124s"/></g>
+<g style="animation:pop .5s cubic-bezier(.16,1,.3,1) 1.29s both"><rect x="1124.3" y="222" width="15" height="15" rx="3" fill="#CFC7B8"/><rect x="1124.3" y="241.7" width="15" height="15" rx="3" fill="#E3DCCF"/><rect x="1124.3" y="261.4" width="15" height="15" rx="3" fill="#E3DCCF"/><rect x="1124.3" y="281.1" width="15" height="15" rx="3" fill="#B9311A" class="hot" style="animation-delay:2.124s"/><rect x="1124.3" y="300.8" width="15" height="15" rx="3" fill="#B9311A" class="hot" style="animation-delay:2.124s"/><rect x="1124.3" y="320.5" width="15" height="15" rx="3" fill="#E3DCCF"/></g>
 <g class="sm">
 <text x="56" y="394">EACH SQUARE IS A DAY · THE LINE IS THE WEEKLY TREND</text>
 <text x="997" y="394" text-anchor="end">LESS</text>

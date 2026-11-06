@@ -29,15 +29,17 @@ const THEMES = {
     bg: '#100F0D', panel2: '#1F1C18', ink: '#EEE7D9', ink2: '#B3AB9B', ink3: '#938C7F',
     sig: '#FF5A36', bar: '#6E675B', bar2: '#A59D8E',
     hair: 'rgba(238,231,217,.13)', hair2: 'rgba(238,231,217,.26)',
-    lvl: ['#1F1C18', '#38332C', '#6E675B', '#A59D8E', '#FF5A36'],
+    lvl: ['#1F1C18', '#76331E', '#A54024', '#D44A27', '#FF5A36'],
   },
   light: {
     bg: '#F1ECE2', panel2: '#E9E3D7', ink: '#16140F', ink2: '#4A443A', ink3: '#6A6356',
     sig: '#B9311A', bar: '#8C8475', bar2: '#5E574B',
     hair: 'rgba(22,20,15,.12)', hair2: 'rgba(22,20,15,.26)',
-    lvl: ['#E3DCCF', '#CFC7B8', '#A39A89', '#5E574B', '#B9311A'],
+    lvl: ['#E3DCCF', '#E09379', '#D97355', '#CE5135', '#B9311A'],
   },
 };
+// Contribution levels: empty days stay neutral, then one orange hue with lightness stepping evenly
+// (about 0.09 in OKLCH) up to the brand vermilion. The faintest step clears the background at 2:1.
 
 const font = (f) => fs.readFileSync(path.join(ROOT, 'scripts', 'fonts', f)).toString('base64');
 const FACES = {

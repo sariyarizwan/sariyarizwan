@@ -31,21 +31,21 @@
 <text x="1035.5" y="528" text-anchor="middle">2026</text><path d="M1144 90V506" stroke="rgba(238,231,217,.13)"/>
 <text x="1144" y="528" text-anchor="middle">2027</text><path d="M520 506H1144" stroke="rgba(238,231,217,.26)"/></g>
 <g style="animation:fade .6s ease-out 2.4s both">
-<path d="M1128.5 82V506" stroke="#FF5A36" stroke-dasharray="3 4"/>
-<text class="now" x="1128.5" y="76" text-anchor="middle">NOW</text>
+<path d="M1128.8 82V506" stroke="#FF5A36" stroke-dasharray="3 4"/>
+<text class="now" x="1128.8" y="76" text-anchor="middle">NOW</text>
 </g>
 <g style="animation:rise .8s cubic-bezier(.16,1,.3,1) 0.20s both">
 <text class="org" x="56" y="108">Natera</text>
 <text class="ttl" x="56" y="126">BUSINESS INTELLIGENCE ANALYST</text>
 </g>
-<rect class="bar" x="1080.7" y="98" width="47.8" height="12" rx="2" fill="#FF5A36" stroke="none" style="animation-delay:2.00s"/>
-<circle cx="1128.5" cy="104" r="4" fill="#FF5A36" style="animation:fade .4s ease-out 2.90s both"/>
+<rect class="bar" x="1080.7" y="98" width="48.1" height="12" rx="2" fill="#FF5A36" stroke="none" style="animation-delay:2.00s"/>
+<circle cx="1128.8" cy="104" r="4" fill="#FF5A36" style="animation:fade .4s ease-out 2.90s both"/>
 <g style="animation:rise .8s cubic-bezier(.16,1,.3,1) 0.26s both">
 <text class="org" x="56" y="152">PSEG</text>
 <text class="ttl" x="56" y="170">BUSINESS SUPPORT SPECIALIST</text>
 </g>
-<rect class="bar" x="1116.9" y="142" width="11.7" height="12" rx="2" fill="#FF5A36" stroke="none" style="animation-delay:2.11s"/>
-<circle cx="1128.5" cy="148" r="4" fill="#FF5A36" style="animation:fade .4s ease-out 3.01s both"/>
+<rect class="bar" x="1116.9" y="142" width="12" height="12" rx="2" fill="#FF5A36" stroke="none" style="animation-delay:2.11s"/>
+<circle cx="1128.8" cy="148" r="4" fill="#FF5A36" style="animation:fade .4s ease-out 3.01s both"/>
 <g style="animation:rise .8s cubic-bezier(.16,1,.3,1) 0.32s both">
 <text class="org" x="56" y="196">PSEG</text>
 <text class="ttl" x="56" y="214">TECHNICAL INTERN, CONTINUOUS IMPROVEMENT</text>
@@ -56,8 +56,8 @@
 <text class="org" x="56" y="240">OSIRIS Lab, NYU Center for Cybersecurity</text>
 <text class="ttl" x="56" y="258">CYBERSECURITY RESEARCHER / CTF LEAD / SYSTEMS BUILDER</text>
 </g>
-<rect class="bar" x="927" y="230" width="201.6" height="12" rx="2" fill="url(#hatch-sig)" stroke="#FF5A36" style="animation-delay:1.55s"/>
-<circle cx="1128.5" cy="236" r="4" fill="#FF5A36" style="animation:fade .4s ease-out 2.45s both"/>
+<rect class="bar" x="927" y="230" width="201.9" height="12" rx="2" fill="url(#hatch-sig)" stroke="#FF5A36" style="animation-delay:1.55s"/>
+<circle cx="1128.8" cy="236" r="4" fill="#FF5A36" style="animation:fade .4s ease-out 2.45s both"/>
 <g style="animation:rise .8s cubic-bezier(.16,1,.3,1) 0.44s both">
 <text class="org" x="56" y="284">Pace University</text>
 <text class="ttl" x="56" y="302">RESEARCH ASSISTANT &amp; PRINCIPAL INVESTIGATOR</text>

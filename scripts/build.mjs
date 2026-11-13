@@ -355,10 +355,10 @@ ${legend}`;
 
 // ---------------------------------------------------------------- career
 
-// Titles and dates match sariyarizwan.com. end: null means current.
+// Titles and dates match sariyarizwan.com, except that the PSEG Business Support Specialist role
+// is left off the profile on request. end: null means current.
 const ROLES = [
   { org: 'Natera', title: 'Business Intelligence Analyst', start: [2026, 6], end: null, lane: 'industry' },
-  { org: 'PSEG', title: 'Business Support Specialist', start: [2026, 10], end: null, lane: 'industry' },
   { org: 'PSEG', title: 'Technical Intern, Continuous Improvement', start: [2025, 6], end: [2026, 5], lane: 'industry' },
   { org: 'OSIRIS Lab, NYU Center for Cybersecurity', title: 'Cybersecurity Researcher / CTF Lead / Systems Builder', start: [2025, 1], end: null, lane: 'research' },
   { org: 'Pace University', title: 'Research Assistant & Principal Investigator', start: [2025, 1], end: [2026, 5], lane: 'research' },
